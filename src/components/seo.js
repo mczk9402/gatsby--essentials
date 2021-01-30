@@ -22,7 +22,7 @@ export default ({ pagetitle, pagedesc, pagepath, pageimg, pageimgw, pageimgh,}) 
     ? `${pagetitle} | ${siteMetadata.title}`
     : siteMetadata.title
 
-  const description = description || siteMetadata.description
+  const description = pagedesc || siteMetadata.description
 
   const url = pagepath
     ? `${siteMetadata.siteUrl}${pagepath}`
@@ -32,9 +32,9 @@ export default ({ pagetitle, pagedesc, pagepath, pageimg, pageimgw, pageimgh,}) 
     ? `${siteMetadata.siteUrl}${pageimg}`
     : `${siteMetadata.siteUrl}/thumbnail.jpg`
 
-  const imgw = imgw || 1280
+  const imgw = pageimgw || 1280
 
-  const imgh = imgh || 640
+  const imgh = pageimgh || 640
 
   return (
     <Helmet>
