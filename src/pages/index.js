@@ -3,6 +3,7 @@ import { graphql } from "gatsby"
 import Img from "gatsby-image"
 
 import Layout from "../components/layout"
+import SEO from "../components/seo"
 
 export const query = graphql`
 query {
@@ -47,6 +48,7 @@ query {
 export default ({ data }) => {
   return (
     <Layout>
+      <SEO />
       <section className="hero">
         <figure>
           <Img fluid={data.hero.childImageSharp.fluid} alt="" style={{ height: "100%" }} />

@@ -3,6 +3,7 @@ import { graphql } from "gatsby"
 import Img from "gatsby-image"
 
 import Layout from "../components/layout"
+import SEO from "../components/seo"
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faUtensils, faCheckSquare } from "@fortawesome/free-solid-svg-icons"
@@ -14,13 +15,25 @@ query {
       fluid(maxWidth: 1600) {
         ...GatsbyImageSharpFluid_withWebp
       }
+      original {
+        height
+        src
+        width
+      }
     }
   }
 }
 `
-export default ({ data }) => {
+export default ({ data, location }) => {
   return (
     <Layout>
+      <SEO
+        pagetitle="ESSENTIALSについて"
+        pagedescription="食べ物について発信しているサイトです。"
+        pagepath={location.pathname}
+        pageimg={data.about.childImageSharp.original.src}
+        pageimgw={data.about.childImageSharp.original.width}
+        pageimgh={data.about.childImageSharp.original.height} />
       <div className="eyecatch">
         <figure>
           <Img fluid={data.about.childImageSharp.fluid} alt="ブルーベリー＆ヨーグルト" />
