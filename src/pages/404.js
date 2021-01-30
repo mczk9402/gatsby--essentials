@@ -11,7 +11,7 @@ export default ({ location }) => {
   return (
     <Layout>
       <SEO pagetitle="お探しのページが見つかりませんでした" pagepath={location.pathname} />
-      <h1 style={style}>お探しのページが見つかりませんでした</h1>
+      <h1 style={style}>お探しのページが見つかりませんでした。</h1>
     </Layout>
   )
 }
