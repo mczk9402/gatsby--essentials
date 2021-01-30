@@ -40,7 +40,7 @@ export default ({ pagetitle, pagedesc, pagepath, pageimg, pageimgw, pageimgh,}) 
     <Helmet>
       <html lang={siteMetadata.lang} />
       <title>{title}</title>
-      <meta name="discription" content={description} />
+      <meta name="description" content={description} />
 
       <link rel="canonical" href={url} />
 
