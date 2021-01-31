@@ -9,9 +9,9 @@ import { config } from "@fortawesome/fontawesome-svg-core"
 config.autoAddCss = false
 
 export default ({ children }) => (
-  <div>
+  <React.Fragment>
     <Header />
-    {children}
+    <main>{children}</main>
     <Footer />
-  </div>
+  </React.Fragment>
 )
