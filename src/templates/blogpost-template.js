@@ -115,7 +115,7 @@ export default ({ data, pageContext, location }) => (
               <Link to={`/blog/post/${pageContext.next.slug}`} rel="prev">
                 <FontAwesomeIcon icon={faChevronLeft} />
                 <span>{pageContext.next.title}</span>
-            </Link>
+              </Link>
             </li>
           )}
           {pageContext.previous && (
@@ -124,7 +124,7 @@ export default ({ data, pageContext, location }) => (
                 <span>{pageContext.previous.title}</span>
                 <FontAwesomeIcon icon={faChevronRight} />
               </Link>
-          </li>
+            </li>
           )}
         </ul>
       </div>
