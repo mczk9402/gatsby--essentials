@@ -2,8 +2,8 @@ import React from 'react'
 import { Helmet } from "react-helmet"
 import { useStaticQuery, graphql } from "gatsby"
 
-export default ({ pagetitle, pagedesc, pagepath, pageimg, pageimgw, pageimgh,}) => {
-  const { site: {siteMetadata}, } = useStaticQuery(graphql`
+export default props => {
+  const data = useStaticQuery(graphql`
     query {
       site {
         siteMetadata {
@@ -18,39 +18,39 @@ export default ({ pagetitle, pagedesc, pagepath, pageimg, pageimgw, pageimgh,}) 
     }
   `)
 
-  const title = pagetitle
-    ? `${pagetitle} | ${siteMetadata.title}`
-    : siteMetadata.title
+  const title = props.pagetitle
+    ? `${props.pagetitle} | ${data.site.siteMetadata.title}`
+    : data.site.siteMetadata.title
 
-  const description = pagedesc || siteMetadata.description
+  const description = props.pagedesc || data.site.siteMetadata.description
 
-  const url = pagepath
-    ? `${siteMetadata.siteUrl}${pagepath}`
-    : siteMetadata.siteUrl
+  const url = props.pagepath
+    ? `${data.site.siteMetadata.siteUrl}${props.pagepath}`
+    : data.site.siteMetadata.siteUrl
 
-  const imgurl = pageimg
-    ? `${siteMetadata.siteUrl}${pageimg}`
-    : `${siteMetadata.siteUrl}/thumbnail.jpg`
+  const imgurl = props.pageimg
+    ? `${data.site.siteMetadata.siteUrl}${props.pageimg}`
+    : props.blogimg || `${data.site.siteMetadata.siteUrl}/thumbnail.jpg`
 
-  const imgw = pageimgw || 1280
+  const imgw = props.pageimgw || 1280
 
-  const imgh = pageimgh || 640
+  const imgh = props.pageimgh || 640
 
   return (
     <Helmet>
-      <html lang={siteMetadata.lang} />
+      <html lang={data.site.siteMetadata.lang} />
       <title>{title}</title>
       <meta name="description" content={description} />
 
       <link rel="canonical" href={url} />
 
-      <meta property="og:site_name" content={siteMetadata.title} />
+      <meta property="og:site_name" content={data.site.siteMetadata.title} />
       <meta property="og:title" content={title} />
       <meta property="og:description" content={description} />
       <meta property="og:url" content={url} />
 
-      <meta property="og:local" content={siteMetadata.local} />
-      <meta property="og:app_id" content={siteMetadata.fbappid} />
+      <meta property="og:local" content={data.site.siteMetadata.local} />
+      <meta property="og:app_id" content={data.site.siteMetadata.fbappid} />
 
       <meta property="og:image" content={imgurl} />
       <meta property="og:image:width" content={imgw} />

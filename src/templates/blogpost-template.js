@@ -1,8 +1,10 @@
 import React from 'react'
-import { graphql } from 'gatsby'
+import { graphql, Link } from 'gatsby'
 import Img from 'gatsby-image'
 import Layout from '../components/layout'
+import SEO from '../components/seo'
 import useContentfulImage from "../utils/useContentfulImage"
+import { documentToPlainTextString } from "@contentful/rich-text-plain-text-renderer"
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faClock, faFolderOpen } from "@fortawesome/free-regular-svg-icons"
@@ -38,8 +40,8 @@ const options = {
 }
 
 export const query = graphql`
-  query {
-    contentfulBlogPost(title: {glob: "毎日*"}) {
+  query($id: String!) {
+    contentfulBlogPost(id: { eq: $id }) {
       title
       publishDateJP:publishDate(formatString: "YYYY年MM月DD日")
       publishDate
@@ -53,6 +55,15 @@ export const query = graphql`
           ...GatsbyContentfulFluid_withWebp
         }
         description
+        file {
+          url
+          details {
+            image {
+              height
+              width
+            }
+          }
+        }
       }
       content {
         json
@@ -61,8 +72,16 @@ export const query = graphql`
   }
 `
 
-export default ({ data }) => (
+export default ({ data, pageContext, location }) => (
   <Layout>
+    <SEO
+      pagetitle={data.contentfulBlogPost.title}
+      pagedesc={`${documentToPlainTextString(data.contentfulBlogPost.content.json).slice(0, 70)}…`}
+      pagepath={location.pathname}
+      blogimg={`https:${data.contentfulBlogPost.eyecatch.file.url}`}
+      pageimgw={data.contentfulBlogPost.eyecatch.file.details.image.width}
+      pageimgh={data.contentfulBlogPost.eyecatch.file.details.image.height}
+    />
     <div className="eyecatch">
       <figure>
         <Img fluid={data.contentfulBlogPost.eyecatch.fluid} alt={data.contentfulBlogPost.eyecatch.description} />
@@ -91,18 +110,22 @@ export default ({ data }) => (
           {documentToReactComponents(data.contentfulBlogPost.content.json, options)}
         </div>
         <ul className="postlink">
-          <li className="prev">
-            <a href="base-blogpost.html" rel="prev">
-              <FontAwesomeIcon icon={faChevronLeft} />
-              <span>前の記事</span>
-            </a>
+          {pageContext.next && (
+            <li className="prev">
+              <Link to={`/blog/post/${pageContext.next.slug}`} rel="prev">
+                <FontAwesomeIcon icon={faChevronLeft} />
+                <span>{pageContext.next.title}</span>
+            </Link>
+            </li>
+          )}
+          {pageContext.previous && (
+            <li className="next">
+              <Link to={`/blog/post/${pageContext.previous.slug}`} rel="next">
+                <span>{pageContext.previous.title}</span>
+                <FontAwesomeIcon icon={faChevronRight} />
+              </Link>
           </li>
-          <li className="next">
-            <a href="base-blogpost.html" rel="next">
-              <span>次の記事</span>
-              <FontAwesomeIcon icon={faChevronRight} />
-            </a>
-          </li>
+          )}
         </ul>
       </div>
     </article>
