@@ -51,7 +51,7 @@ export default props => {
       <meta property="og:type" content="website" />
 
       <meta property="og:local" content={data.site.siteMetadata.local} />
-      <meta property="og:app_id" content={data.site.siteMetadata.fbappid} />
+      <meta property="fb:app_id" content={data.site.siteMetadata.fbappid} />
 
       <meta property="og:image" content={imgurl} />
       <meta property="og:image:width" content={imgw} />
