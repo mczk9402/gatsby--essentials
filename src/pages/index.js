@@ -1,5 +1,6 @@
 import React from "react"
 import { graphql } from "gatsby"
+import { Link } from "gatsby"
 import Img from "gatsby-image"
 
 import Layout from "../components/layout"
@@ -9,36 +10,51 @@ export const query = graphql`
 query {
   hero: file(relativePath: {eq: "hero.jpg"}) {
     childImageSharp {
-      fluid(maxWidth: 1600) {
+      fluid(maxWidth: 1600, quality: 90) {
         ...GatsbyImageSharpFluid_withWebp
       }
     }
   }
   fruit: file(relativePath: {eq: "fruit.jpg"}) {
     childImageSharp {
-      fixed(width: 200) {
+      fixed(width: 200, quality: 90) {
         ...GatsbyImageSharpFixed_withWebp
       }
     }
   }
   grain: file(relativePath: {eq: "grain.jpg"}) {
     childImageSharp {
-      fixed(width: 200) {
+      fixed(width: 200, quality: 90) {
         ...GatsbyImageSharpFixed_withWebp
       }
     }
   }
   beverage: file(relativePath: {eq: "beverage.jpg"}) {
     childImageSharp {
-      fixed(width: 200) {
+      fixed(width: 200, quality: 90) {
         ...GatsbyImageSharpFixed_withWebp
       }
     }
   }
   berry: file(relativePath: {eq: "berry.jpg"}) {
     childImageSharp {
-      fluid(maxWidth: 1600) {
+      fluid(maxWidth: 1600, quality: 90) {
         ...GatsbyImageSharpFluid_withWebp
+      }
+    }
+  }
+  allContentfulBlogPost(sort: {order: DESC, fields: publishDate}, limit: 4, skip: 0) {
+    edges {
+      node {
+        id
+        title
+        slug
+        eyecatch {
+          description
+          fluid(maxWidth: 1920) {
+            ...GatsbyContentfulFluid_withWebp
+          }
+        }
       }
     }
   }
@@ -104,6 +120,23 @@ export default ({ data }) => {
           <Img fluid={data.berry.childImageSharp.fluid} alt="" style={{ height: "100%" }} />
         </figure>
       </section>
+      <section className="content bloglist">
+      <div className="container">
+        <h2 className="sr-only">RECENT POSTS</h2>
+        <div className="posts">
+          {data.allContentfulBlogPost.edges.map(({ node }) => (
+            <article className="post" key={node.id}>
+              <Link to={`blog/post/${node.slug}`}>
+                <figure>
+                  <Img fluid={node.eyecatch.fluid} alt={node.eyecatch.description} style={{ height: "100%" }} />
+                </figure>
+                <h2>{node.title}</h2>
+              </Link>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
     </Layout>
   )
 }
