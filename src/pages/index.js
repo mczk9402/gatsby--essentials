@@ -2,47 +2,13 @@ import React from "react"
 import { graphql } from "gatsby"
 import { Link } from "gatsby"
 import Img from "gatsby-image"
+import Image from "../components/image"
 
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 
 export const query = graphql`
 query {
-  hero: file(relativePath: {eq: "hero.jpg"}) {
-    childImageSharp {
-      fluid(maxWidth: 1600, quality: 90) {
-        ...GatsbyImageSharpFluid_withWebp
-      }
-    }
-  }
-  fruit: file(relativePath: {eq: "fruit.jpg"}) {
-    childImageSharp {
-      fixed(width: 200, quality: 90) {
-        ...GatsbyImageSharpFixed_withWebp
-      }
-    }
-  }
-  grain: file(relativePath: {eq: "grain.jpg"}) {
-    childImageSharp {
-      fixed(width: 200, quality: 90) {
-        ...GatsbyImageSharpFixed_withWebp
-      }
-    }
-  }
-  beverage: file(relativePath: {eq: "beverage.jpg"}) {
-    childImageSharp {
-      fixed(width: 200, quality: 90) {
-        ...GatsbyImageSharpFixed_withWebp
-      }
-    }
-  }
-  berry: file(relativePath: {eq: "berry.jpg"}) {
-    childImageSharp {
-      fluid(maxWidth: 1600, quality: 90) {
-        ...GatsbyImageSharpFluid_withWebp
-      }
-    }
-  }
   allContentfulBlogPost(sort: {order: DESC, fields: publishDate}, limit: 4, skip: 0) {
     edges {
       node {
@@ -66,9 +32,9 @@ export default ({ data }) => {
     <Layout>
       <SEO />
       <section className="hero">
-        <figure>
-          <Img fluid={data.hero.childImageSharp.fluid} alt="" style={{ height: "100%" }} />
-        </figure>
+        <div className="hero__thumbnail">
+          <Image className="hero__image" filename="hero.jpg" alt=""/>
+        </div>
         <div className="catch">
           <h1>There is no love sincerer than<br /> the love of food.</h1>
           <p>食物を愛するよりも誠実な愛はない ― バーナード・ショー</p>
@@ -88,25 +54,19 @@ export default ({ data }) => {
           <h2 className="bar">Food <span>Essence</span></h2>
           <div className="details">
             <div className="detail">
-              <figure>
-                <Img fixed={data.fruit.childImageSharp.fixed} alt="" />
-              </figure>
+              <Image className="detail__image" filename="fruit.jpg" alt="フルーツ"/>
               <h3>フルーツ</h3>
               <p>FRUIT</p>
               <p>甘くてすっぱくておいしい果実たち。<br />旬のフルーツを満喫します。</p>
             </div>
             <div className="detail">
-              <figure>
-                <Img fixed={data.grain.childImageSharp.fixed} alt="" />
-              </figure>
+              <Image className="detail__image" filename="grain.jpg" alt="穀物"/>
               <h3>穀物</h3>
               <p>GRAIN</p>
               <p>食事の基本となる穀物。<br />毎日の活動のエネルギー源になります。</p>
             </div>
             <div className="detail">
-              <figure>
-                <Img fixed={data.beverage.childImageSharp.fixed} alt="" />
-              </figure>
+              <Image className="detail__image" filename="beverage.jpg" alt="ジュース"/>
               <h3>飲み物</h3>
               <p>BEVERAGE</p>
               <p>リラックスするのに欠かせない飲み物。<br />お気に入りの一杯はありますか？</p>
@@ -116,9 +76,7 @@ export default ({ data }) => {
       </section>
       <section className="photo">
         <h2 className="sr-only">Photo</h2>
-        <figure>
-          <Img fluid={data.berry.childImageSharp.fluid} alt="" style={{ height: "100%" }} />
-        </figure>
+        <Image className="detail__image" filename="beverage.jpg" alt="ジュース"/>
       </section>
       <section className="content bloglist">
       <div className="container">
