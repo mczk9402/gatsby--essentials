@@ -100,7 +100,7 @@ export default ({ data, pageContext, location }) => (
             <ul>
               {data.contentfulBlogPost.category.map(category__item => (
                 <li className={category__item.categorySlug} key={category__item.id}>
-                  {category__item.category}
+                  <Link to={`/category/${category__item.categorySlug}`}>{category__item.category}</Link>
                 </li>
               ))}
             </ul>
