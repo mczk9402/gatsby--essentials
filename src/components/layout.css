@@ -2,7 +2,8 @@
 
 /* 基本 */
 body {
-	font-family: sans-serif;
+	font-family: 'Hanalei', sans-serif;
+	/* font-family: 'Open Sans Condensed', sans-serif; */
 	color: #222;
 }
 
@@ -46,7 +47,7 @@ svg {
 .food h2,
 .detail p:first-of-type,
 .info .subtitle {
-	font-family: 'Avenir Next', 'Segoe UI', Helvetica, sans-serif;
+	/* font-family: 'Avenir Next', 'Segoe UI', Helvetica, sans-serif; */
 }
 
 .sr-only {
