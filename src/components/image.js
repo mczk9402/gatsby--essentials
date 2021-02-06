@@ -1,6 +1,6 @@
 import React from "react"
 import { useStaticQuery, graphql } from "gatsby"
-import Img from "gatsby-image"
+import Img from "gatsby-image/withIEPolyfill"
 
 export default props => {
   const { allImageSharp } = useStaticQuery(graphql`
@@ -21,6 +21,8 @@ export default props => {
     alt={props.alt}
     className={props.className}
     style={props.style}
+    loading="eager"
+    durationFadeIn={100}
   />
   )
 }
